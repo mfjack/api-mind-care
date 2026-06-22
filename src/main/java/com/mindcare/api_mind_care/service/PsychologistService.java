@@ -14,20 +14,20 @@ public class PsychologistService {
     @Autowired
     private PsychologistRepository psychologistRepository;
 
-    public PsychologistResponseDTO createPsychologist(PsychologistCreateRequestDTO psychologistRequestDTO) {
+    public PsychologistResponseDTO createPsychologist(PsychologistCreateRequestDTO psychologistCreateRequestDTO) {
         Psychologist existingPsychologist = psychologistRepository
-                .findByRegistrationNumber(psychologistRequestDTO.getRegistrationNumber());
+                .findByRegistrationNumber(psychologistCreateRequestDTO.getRegistrationNumber());
 
         if (existingPsychologist != null) {
             throw new IllegalArgumentException("Registration number already in use");
         }
 
         Psychologist newPsychologist = new Psychologist();
-        newPsychologist.setEmail(psychologistRequestDTO.getEmail());
-        newPsychologist.setPassword(psychologistRequestDTO.getPassword());
-        newPsychologist.setRole(psychologistRequestDTO.getRole());
-        newPsychologist.setSpecialization(psychologistRequestDTO.getSpecialization());
-        newPsychologist.setRegistrationNumber(psychologistRequestDTO.getRegistrationNumber());
+        newPsychologist.setEmail(psychologistCreateRequestDTO.getEmail());
+        newPsychologist.setPassword(psychologistCreateRequestDTO.getPassword());
+        newPsychologist.setRole(psychologistCreateRequestDTO.getRole());
+        newPsychologist.setSpecialization(psychologistCreateRequestDTO.getSpecialization());
+        newPsychologist.setRegistrationNumber(psychologistCreateRequestDTO.getRegistrationNumber());
 
         Psychologist savedPsychologist = psychologistRepository.save(newPsychologist);
 

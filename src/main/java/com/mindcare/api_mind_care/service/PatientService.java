@@ -15,11 +15,11 @@ public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
-    public PatientResponseDTO createPatient(PatientCreateRequestDTO patientRequestDTO) {
+    public PatientResponseDTO createPatient(PatientCreateRequestDTO patientCreateRequestDTO) {
         Patient newPatient = new Patient();
-        newPatient.setEmail(patientRequestDTO.getEmail());
-        newPatient.setPassword(patientRequestDTO.getPassword());
-        newPatient.setRole(patientRequestDTO.getRole());
+        newPatient.setEmail(patientCreateRequestDTO.getEmail());
+        newPatient.setPassword(patientCreateRequestDTO.getPassword());
+        newPatient.setRole(patientCreateRequestDTO.getRole());
 
         Patient savedPatient = patientRepository.save(newPatient);
         return new PatientResponseDTO(
