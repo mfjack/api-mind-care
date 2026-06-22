@@ -2,7 +2,7 @@ package com.mindcare.api_mind_care.dto;
 
 import java.time.LocalDateTime;
 
-import javax.management.relation.Role;
+import com.mindcare.api_mind_care.domain.Role;
 
 public class PsychologistResponseDTO {
     private Long id;
