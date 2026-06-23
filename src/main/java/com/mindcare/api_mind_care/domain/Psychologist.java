@@ -3,10 +3,7 @@ package com.mindcare.api_mind_care.domain;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
-import jakarta.persistence.Table;
-
 @Entity
-@Table(name = "psychologists")
 public class Psychologist extends User {
 
     @Column(length = 200)
@@ -18,8 +15,9 @@ public class Psychologist extends User {
     public Psychologist() {
     }
 
-    public Psychologist(String name, String phone, Role role, String specialization, int registrationNumber) {
-        super(name, phone, role);
+    public Psychologist(String name, String email, String password, Role role, String specialization,
+            int registrationNumber) {
+        super(name, email, password, role);
         this.specialization = specialization;
         this.registrationNumber = registrationNumber;
     }
