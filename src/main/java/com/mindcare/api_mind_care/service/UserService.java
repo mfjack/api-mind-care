@@ -1,5 +1,7 @@
 package com.mindcare.api_mind_care.service;
 
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -58,5 +60,23 @@ public class UserService {
                 user.getName(),
                 user.getEmail(),
                 user.getPhone());
+    }
+
+    public List<UserResponseDTO> findAll() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(user -> new UserResponseDTO(
+                        user.getId(),
+                        user.getName(),
+                        user.getEmail(),
+                        user.getPhone()))
+                .toList();
+    }
+
+    public void deleteById(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new IllegalArgumentException("User not found");
+        }
+        userRepository.deleteById(id);
     }
 }
