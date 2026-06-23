@@ -26,7 +26,7 @@ public class PatientController {
         this.patientService = patientService;
     }
 
-    @PostMapping
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public PatientResponseDTO create(@Valid @RequestBody PatientRequestDTO dto) {
         return patientService.create(dto);
@@ -37,7 +37,7 @@ public class PatientController {
         return patientService.findById(id);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<PatientResponseDTO> findAll() {
         return patientService.findAll();
     }
