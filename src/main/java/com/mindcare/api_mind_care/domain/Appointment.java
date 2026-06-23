@@ -2,9 +2,6 @@ package com.mindcare.api_mind_care.domain;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -32,33 +29,26 @@ public class Appointment {
     private Psychologist psychologist;
 
     @Column(nullable = false)
-    private LocalDateTime appointmentDate;
+    private LocalDateTime appointmentDateTime;
 
     @Column(nullable = false)
     private Integer durationInMinutes;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    @Column(nullable = false)
+    private AppointmentStatus status;
 
     @Column(length = 500)
     private String notes;
 
-    @CreationTimestamp
-    @Column(updatable = false, nullable = false)
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
-
     public Appointment() {
     }
 
-    public Appointment(Patient patient, Psychologist psychologist, LocalDateTime appointmentDate,
-            Integer durationInMinutes, Status status, String notes) {
+    public Appointment(Patient patient, Psychologist psychologist, LocalDateTime appointmentDateTime,
+            Integer durationInMinutes, AppointmentStatus status, String notes) {
         this.patient = patient;
         this.psychologist = psychologist;
-        this.appointmentDate = appointmentDate;
+        this.appointmentDateTime = appointmentDateTime;
         this.durationInMinutes = durationInMinutes;
         this.status = status;
         this.notes = notes;
@@ -72,55 +62,41 @@ public class Appointment {
         return patient;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
     public Psychologist getPsychologist() {
         return psychologist;
     }
 
-    public void setPsychologist(Psychologist psychologist) {
-        this.psychologist = psychologist;
-    }
-
-    public LocalDateTime getAppointmentDate() {
-        return appointmentDate;
-    }
-
-    public void setAppointmentDate(LocalDateTime appointmentDate) {
-        this.appointmentDate = appointmentDate;
+    public LocalDateTime getAppointmentDateTime() {
+        return appointmentDateTime;
     }
 
     public Integer getDurationInMinutes() {
         return durationInMinutes;
     }
 
-    public void setDurationInMinutes(Integer durationInMinutes) {
-        this.durationInMinutes = durationInMinutes;
-    }
-
-    public Status getStatus() {
+    public AppointmentStatus getStatus() {
         return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 
     public String getNotes() {
         return notes;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void confirm() {
+        if (this.status != AppointmentStatus.SCHEDULED) {
+            throw new IllegalStateException("Only SCHEDULED appointments can be confirmed");
+        }
+        this.status = AppointmentStatus.CONFIRMED;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public void cancel() {
+        if (this.status == AppointmentStatus.CANCELLED) {
+            throw new IllegalStateException("Appointment already cancelled");
+        }
+        this.status = AppointmentStatus.CANCELLED;
     }
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
+    public void setStatus(AppointmentStatus status) {
+        this.status = status;
     }
 }

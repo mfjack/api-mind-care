@@ -12,4 +12,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findByPsychologistId(Long psychologistId);
 
     List<Appointment> findByPatientId(Long patientId);
+
+    boolean existsByPsychologistIdAndAppointmentDateTimeAndStatusNot(Long psychologistId,
+            java.time.LocalDateTime appointmentDateTime, com.mindcare.api_mind_care.domain.AppointmentStatus status);
 }
