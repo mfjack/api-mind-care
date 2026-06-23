@@ -44,7 +44,7 @@ public class PsychologistController {
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/psychologists")
+    @GetMapping
     public ResponseEntity<List<PsychologistResponseDTO>> findAll() {
         List<PsychologistResponseDTO> responseDTO = psychologistService.findAll();
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);

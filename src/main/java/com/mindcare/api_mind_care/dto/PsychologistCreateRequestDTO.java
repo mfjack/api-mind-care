@@ -1,5 +1,7 @@
 package com.mindcare.api_mind_care.dto;
 
+import com.mindcare.api_mind_care.domain.Role;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -18,9 +20,9 @@ public class PsychologistCreateRequestDTO extends UserCreateRequestDTO {
         super();
     }
 
-    public PsychologistCreateRequestDTO(String email, String password, com.mindcare.api_mind_care.domain.Role role,
+    public PsychologistCreateRequestDTO(String name, String email, String password, Role role,
             String specialization, int registrationNumber) {
-        super(email, password, role);
+        super(name, email, password, role);
         this.specialization = specialization;
         this.registrationNumber = registrationNumber;
     }

@@ -8,7 +8,7 @@ public class PatientCreateRequestDTO extends UserCreateRequestDTO {
         super();
     }
 
-    public PatientCreateRequestDTO(String email, String password, Role role) {
-        super(email, password, role);
+    public PatientCreateRequestDTO(String name, String email, String password, Role role) {
+        super(name, email, password, role);
     }
 }

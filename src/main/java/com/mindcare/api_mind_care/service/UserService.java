@@ -21,6 +21,7 @@ public class UserService {
         }
 
         User newUser = new User();
+        newUser.setName(userCreateRequestDTO.getName());
         newUser.setEmail(userCreateRequestDTO.getEmail());
         newUser.setPassword(userCreateRequestDTO.getPassword());
         newUser.setRole(userCreateRequestDTO.getRole());
@@ -29,6 +30,7 @@ public class UserService {
 
         return new UserResponseDTO(
                 savedUser.getId(),
+                savedUser.getName(),
                 savedUser.getEmail(),
                 savedUser.getRole(),
                 savedUser.getCreatedAt());
@@ -43,6 +45,7 @@ public class UserService {
 
         return new UserResponseDTO(
                 user.getId(),
+                user.getName(),
                 user.getEmail(),
                 user.getRole(),
                 user.getCreatedAt());
@@ -57,6 +60,7 @@ public class UserService {
 
         return new UserResponseDTO(
                 user.getId(),
+                user.getName(),
                 user.getEmail(),
                 user.getRole(),
                 user.getCreatedAt());

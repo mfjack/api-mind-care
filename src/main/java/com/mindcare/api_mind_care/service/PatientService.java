@@ -17,13 +17,16 @@ public class PatientService {
 
     public PatientResponseDTO createPatient(PatientCreateRequestDTO patientCreateRequestDTO) {
         Patient newPatient = new Patient();
+        newPatient.setName(patientCreateRequestDTO.getName());
         newPatient.setEmail(patientCreateRequestDTO.getEmail());
         newPatient.setPassword(patientCreateRequestDTO.getPassword());
         newPatient.setRole(patientCreateRequestDTO.getRole());
 
         Patient savedPatient = patientRepository.save(newPatient);
+
         return new PatientResponseDTO(
                 savedPatient.getId(),
+                savedPatient.getName(),
                 savedPatient.getEmail(),
                 savedPatient.getRole(),
                 savedPatient.getCreatedAt());
@@ -38,6 +41,7 @@ public class PatientService {
 
         return new PatientResponseDTO(
                 patient.getId(),
+                patient.getName(),
                 patient.getEmail(),
                 patient.getRole(),
                 patient.getCreatedAt());
@@ -49,6 +53,7 @@ public class PatientService {
         return patients.stream()
                 .map(patient -> new PatientResponseDTO(
                         patient.getId(),
+                        patient.getName(),
                         patient.getEmail(),
                         patient.getRole(),
                         patient.getCreatedAt()))

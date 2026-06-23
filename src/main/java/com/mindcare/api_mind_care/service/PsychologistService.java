@@ -23,6 +23,7 @@ public class PsychologistService {
         }
 
         Psychologist newPsychologist = new Psychologist();
+        newPsychologist.setName(psychologistCreateRequestDTO.getName());
         newPsychologist.setEmail(psychologistCreateRequestDTO.getEmail());
         newPsychologist.setPassword(psychologistCreateRequestDTO.getPassword());
         newPsychologist.setRole(psychologistCreateRequestDTO.getRole());
@@ -33,6 +34,7 @@ public class PsychologistService {
 
         return new PsychologistResponseDTO(
                 savedPsychologist.getId(),
+                savedPsychologist.getName(),
                 savedPsychologist.getEmail(),
                 savedPsychologist.getRole(),
                 savedPsychologist.getSpecialization(),
@@ -49,6 +51,7 @@ public class PsychologistService {
 
         return new PsychologistResponseDTO(
                 psychologist.getId(),
+                psychologist.getName(),
                 psychologist.getEmail(),
                 psychologist.getRole(),
                 psychologist.getSpecialization(),
@@ -65,6 +68,7 @@ public class PsychologistService {
 
         return new PsychologistResponseDTO(
                 psychologist.getId(),
+                psychologist.getName(),
                 psychologist.getEmail(),
                 psychologist.getRole(),
                 psychologist.getSpecialization(),
@@ -78,6 +82,7 @@ public class PsychologistService {
         return psychologists.stream()
                 .map(psychologist -> new PsychologistResponseDTO(
                         psychologist.getId(),
+                        psychologist.getName(),
                         psychologist.getEmail(),
                         psychologist.getRole(),
                         psychologist.getSpecialization(),

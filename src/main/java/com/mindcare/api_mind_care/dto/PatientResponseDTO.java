@@ -6,6 +6,7 @@ import com.mindcare.api_mind_care.domain.Role;
 
 public class PatientResponseDTO {
     private Long id;
+    private String name;
     private String email;
     private Role role;
     private LocalDateTime createdAt;
@@ -13,8 +14,9 @@ public class PatientResponseDTO {
     public PatientResponseDTO() {
     }
 
-    public PatientResponseDTO(Long id, String email, Role role, LocalDateTime createdAt) {
+    public PatientResponseDTO(Long id, String name, String email, Role role, LocalDateTime createdAt) {
         this.id = id;
+        this.name = name;
         this.email = email;
         this.role = role;
         this.createdAt = createdAt;
@@ -26,6 +28,14 @@ public class PatientResponseDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

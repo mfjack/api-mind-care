@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public class UserCreateRequestDTO {
+    @NotBlank(message = "Name is required")
+    private String name;
     @NotBlank
     @Email(message = "Email should be valid")
     private String email;
@@ -18,10 +20,19 @@ public class UserCreateRequestDTO {
     public UserCreateRequestDTO() {
     }
 
-    public UserCreateRequestDTO(String email, String password, Role role) {
+    public UserCreateRequestDTO(String name, String email, String password, Role role) {
+        this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
