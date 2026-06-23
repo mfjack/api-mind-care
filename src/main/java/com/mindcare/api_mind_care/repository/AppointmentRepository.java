@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.mindcare.api_mind_care.domain.Appointment;
+import com.mindcare.api_mind_care.domain.AppointmentStatus;
 
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
@@ -14,5 +15,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findByPatientId(Long patientId);
 
     boolean existsByPsychologistIdAndAppointmentDateTimeAndStatusNot(Long psychologistId,
-            java.time.LocalDateTime appointmentDateTime, com.mindcare.api_mind_care.domain.AppointmentStatus status);
+            java.time.LocalDateTime appointmentDateTime, AppointmentStatus status);
 }
