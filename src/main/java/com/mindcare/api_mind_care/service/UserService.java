@@ -1,68 +1,62 @@
 package com.mindcare.api_mind_care.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mindcare.api_mind_care.domain.User;
-import com.mindcare.api_mind_care.dto.UserCreateRequestDTO;
+import com.mindcare.api_mind_care.dto.UserRequestDTO;
 import com.mindcare.api_mind_care.dto.UserResponseDTO;
 import com.mindcare.api_mind_care.repository.UserRepository;
 
 @Service
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserResponseDTO register(UserCreateRequestDTO userCreateRequestDTO) {
-        User existingUser = userRepository.findByEmail(userCreateRequestDTO.getEmail());
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
-        if (existingUser != null) {
+    public UserResponseDTO create(UserRequestDTO dto) {
+        if (userRepository.existsByEmail(dto.email())) {
             throw new IllegalArgumentException("Email already in use");
         }
 
-        User newUser = new User();
-        newUser.setName(userCreateRequestDTO.getName());
-        newUser.setEmail(userCreateRequestDTO.getEmail());
-        newUser.setPassword(userCreateRequestDTO.getPassword());
-        newUser.setRole(userCreateRequestDTO.getRole());
+        User user = new User(
+                dto.name(),
+                dto.email(),
+                passwordEncoder.encode(dto.password()),
+                dto.phone());
 
-        User savedUser = userRepository.save(newUser);
+        User saved = userRepository.save(user);
 
         return new UserResponseDTO(
-                savedUser.getId(),
-                savedUser.getName(),
-                savedUser.getEmail(),
-                savedUser.getRole(),
-                savedUser.getCreatedAt());
+                saved.getId(),
+                saved.getName(),
+                saved.getEmail(),
+                saved.getPhone());
     }
 
     public UserResponseDTO findByEmail(String email) {
-        User user = userRepository.findByEmail(email);
-
-        if (user == null) {
-            throw new IllegalArgumentException("User not found");
-        }
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         return new UserResponseDTO(
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
-                user.getRole(),
-                user.getCreatedAt());
+                user.getPhone());
     }
 
     public UserResponseDTO findById(Long id) {
-        User user = userRepository.findById(id).orElse(null);
-
-        if (user == null) {
-            throw new IllegalArgumentException("User not found");
-        }
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         return new UserResponseDTO(
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
-                user.getRole(),
-                user.getCreatedAt());
+                user.getPhone());
     }
 }
